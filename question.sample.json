@@ -1,0 +1,70 @@
+{
+  "type": "message_action",
+  "token": "fgbb6AhfvpEkamnRyGYBJvFp",
+  "action_ts": "1617991724.858332",
+  "team": { "id": "T379JAFD2", "domain": "khdkhd" },
+  "user": {
+    "id": "U36FXD7CY",
+    "username": "anton",
+    "team_id": "T379JAFD2",
+    "name": "anton"
+  },
+  "channel": { "id": "CHC17V57W", "name": "test" },
+  "is_enterprise_install": false,
+  "enterprise": null,
+  "callback_id": "faq",
+  "trigger_id": "1959915919121.109324355444.1556c060d93f7962a092d9c9bb3652a7",
+  "response_url": "https://hooks.slack.com/app/T379JAFD2/1971102674704/OppyIhP25B35cxihqpJ0yFAj",
+  "message_ts": "1617991714.000800",
+  "message": {
+    "client_msg_id": "fd691d1a-575a-4919-8ec7-6ab679871415",
+    "type": "message",
+    "text": "Hello, I want to add specific quota on route `/merch/*`. When I try to do it and to call for example `/merch/v1/products/1234`, it doesn't work. I also try with `/merch` and it's the same. But when I add a quota on the exact call `/merch/v1/products/1234`, then it works. So I guess I don't use the right syntax. What should be the syntax for that? Thanks in advance :slightly_smiling_face:",
+    "user": "U36FXD7CY",
+    "ts": "1617991714.000800",
+    "team": "T379JAFD2",
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "VOThU",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "Hello, I want to add specific quota on route "
+              },
+              { "type": "text", "text": "/merch/*", "style": { "code": true } },
+              {
+                "type": "text",
+                "text": ". When I try to do it and to call for example "
+              },
+              {
+                "type": "text",
+                "text": "/merch/v1/products/1234",
+                "style": { "code": true }
+              },
+              { "type": "text", "text": ", it doesn't work. I also try with " },
+              { "type": "text", "text": "/merch", "style": { "code": true } },
+              {
+                "type": "text",
+                "text": " and it's the same. But when I add a quota on the exact call "
+              },
+              {
+                "type": "text",
+                "text": "/merch/v1/products/1234",
+                "style": { "code": true }
+              },
+              {
+                "type": "text",
+                "text": ", then it works. So I guess I don't use the right syntax. What should be the syntax for that? Thanks in advance "
+              },
+              { "type": "emoji", "name": "slightly_smiling_face" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

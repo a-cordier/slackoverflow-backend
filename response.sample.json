@@ -1,0 +1,63 @@
+{
+  "type": "message_action",
+  "token": "fgbb6AhfvpEkamnRyGYBJvFp",
+  "action_ts": "1617994772.526828",
+  "team": { "id": "T379JAFD2", "domain": "khdkhd" },
+  "user": {
+    "id": "U36FXD7CY",
+    "username": "anton",
+    "team_id": "T379JAFD2",
+    "name": "anton"
+  },
+  "channel": { "id": "CHC17V57W", "name": "test" },
+  "is_enterprise_install": false,
+  "enterprise": null,
+  "callback_id": "faq",
+  "trigger_id": "1940726842598.109324355444.d101be7288f097bba9af98dd9bd07ccd",
+  "response_url": "https://hooks.slack.com/app/T379JAFD2/1953669476100/xPRjMC3B5P3Pn682fOallszI",
+  "message_ts": "1617994768.001000",
+  "message": {
+    "client_msg_id": "b6e523de-d622-4463-b681-5e30d9616e68",
+    "type": "message",
+    "text": "Bamboo will use a regexp matcher to take a decision about path based rate limiting.\n\nAs a consequence, adding a specific quota on a pattern such as `/merch/*` won't mach the `/merch/v1/products/1234` request URI.\n\nYou would have to define a pattern such as `/merch/.+` in order to match the given URI",
+    "user": "U36FXD7CY",
+    "ts": "1617994768.001000",
+    "team": "T379JAFD2",
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "RaAL",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "Bamboo will use a regexp matcher to take a decision about path based rate limiting.\n\nAs a consequence, adding a specific quota on a pattern such as "
+              },
+              { "type": "text", "text": "/merch/*", "style": { "code": true } },
+              { "type": "text", "text": " won't mach the " },
+              {
+                "type": "text",
+                "text": "/merch/v1/products/1234",
+                "style": { "code": true }
+              },
+              {
+                "type": "text",
+                "text": " request URI.\n\nYou would have to define a pattern such as "
+              },
+              {
+                "type": "text",
+                "text": "/merch/.+",
+                "style": { "code": true }
+              },
+              { "type": "text", "text": " in order to match the given URI" }
+            ]
+          }
+        ]
+      }
+    ],
+    "thread_ts": "1617991714.000800",
+    "parent_user_id": "U36FXD7CY"
+  }
+}
