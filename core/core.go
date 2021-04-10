@@ -25,7 +25,7 @@ func isEmoji(chunk map[string]interface{}) bool {
 	return chunk["type"] == "emoji"
 }
 
-func extractTags(message hook.Message) (tags []db.Tag) {
+func mapTags(message hook.Message) (tags []db.Tag) {
 	for _, b := range message.Blocks {
 		for _, e := range b.Elements {
 			for _, c := range e.Chunks {
@@ -64,7 +64,7 @@ func mapText(message hook.Message) (jsonb postgres.Jsonb) {
 func mapQuestion(payload *hook.ShortCutPayload) *db.Question {
 	q := db.NewQuestion()
 	q.ID = payload.ID
-	q.Tags = extractTags(payload.Message)
+	q.Tags = mapTags(payload.Message)
 	q.Text = mapText(payload.Message)
 	return q
 }
