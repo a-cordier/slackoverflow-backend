@@ -10,17 +10,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func doSave(engine *core.Engine, payload *hook.ShortCutPayload) error {
-	switch payload.CallbackID {
-	case hook.AddQuestion:
-		return engine.SaveQuestion(payload)
-	case hook.AddAnswer:
-		return engine.SaveAnswer(payload)
-	default:
-		return errors.New("Unknown callback ID " + payload.CallbackID)
-	}
-}
-
 func CreateHook(engine *core.Engine) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		var payload hook.ShortCutPayload
@@ -31,5 +20,16 @@ func CreateHook(engine *core.Engine) func(c *gin.Context) {
 		if err := doSave(engine, &payload); err != nil {
 			logrus.Error("Error saving payload", err)
 		}
+	}
+}
+
+func doSave(engine *core.Engine, payload *hook.ShortCutPayload) error {
+	switch payload.CallbackID {
+	case hook.AddQuestion:
+		return engine.SaveQuestion(payload)
+	case hook.AddAnswer:
+		return engine.SaveAnswer(payload)
+	default:
+		return errors.New("Unknown callback ID " + payload.CallbackID)
 	}
 }

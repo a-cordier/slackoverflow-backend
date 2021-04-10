@@ -17,6 +17,19 @@ func NewEngine(db *gorm.DB) *Engine {
 	return &Engine{db}
 }
 
+func (ng *Engine) SaveQuestion(payload *hook.ShortCutPayload) error {
+	channel := mapChannel(payload)
+	question := mapQuestion(payload)
+	question.ChannelID = channel.ID
+	ng.db.Where(db.Channel{ID: channel.ID}).FirstOrCreate(channel)
+	ng.db.Create(question)
+	return nil
+}
+
+func (ng *Engine) SaveAnswer(payload *hook.ShortCutPayload) error {
+	return nil
+}
+
 func isText(chunk map[string]interface{}) bool {
 	return chunk["type"] == "text"
 }
@@ -75,17 +88,4 @@ func mapChannel(payload *hook.ShortCutPayload) *db.Channel {
 		Name:      payload.Channel.Name,
 		Questions: []db.Question{},
 	}
-}
-
-func (ng *Engine) SaveQuestion(payload *hook.ShortCutPayload) error {
-	channel := mapChannel(payload)
-	question := mapQuestion(payload)
-	question.ChannelID = channel.ID
-	ng.db.Where(db.Channel{ID: channel.ID}).FirstOrCreate(channel)
-	ng.db.Create(question)
-	return nil
-}
-
-func (ng *Engine) SaveAnswer(payload *hook.ShortCutPayload) error {
-	return nil
 }
