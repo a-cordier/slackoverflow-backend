@@ -31,16 +31,3 @@ type MessageBlockElement struct {
 	Type   string                   `json:"type"`
 	Chunks []map[string]interface{} `json:"elements"`
 }
-
-type TextElement struct {
-	Text  string    `json:"text"`
-	Style TextStyle `json:"style"`
-}
-
-type TextStyle struct {
-	Code bool `json:"code"`
-}
-
-type EmojiElement struct {
-	Name string `json:"name"`
-}
