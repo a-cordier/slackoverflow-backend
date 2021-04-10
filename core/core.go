@@ -61,7 +61,7 @@ func mapText(message hook.Message) (jsonb postgres.Jsonb) {
 	return
 }
 
-func mapQuestion(payload hook.ShortCutPayload) *db.Question {
+func mapQuestion(payload *hook.ShortCutPayload) *db.Question {
 	q := db.NewQuestion()
 	q.ID = payload.ID
 	q.Tags = extractTags(payload.Message)
@@ -69,7 +69,7 @@ func mapQuestion(payload hook.ShortCutPayload) *db.Question {
 	return q
 }
 
-func mapChannel(payload hook.ShortCutPayload) *db.Channel {
+func mapChannel(payload *hook.ShortCutPayload) *db.Channel {
 	return &db.Channel{
 		ID:        payload.Channel.ID,
 		Name:      payload.Channel.Name,
@@ -77,7 +77,7 @@ func mapChannel(payload hook.ShortCutPayload) *db.Channel {
 	}
 }
 
-func (ng *Engine) SaveQuestion(payload hook.ShortCutPayload) error {
+func (ng *Engine) SaveQuestion(payload *hook.ShortCutPayload) error {
 	channel := mapChannel(payload)
 	question := mapQuestion(payload)
 	question.ChannelID = channel.ID
@@ -86,6 +86,6 @@ func (ng *Engine) SaveQuestion(payload hook.ShortCutPayload) error {
 	return nil
 }
 
-func (ng *Engine) SaveAnswer(payload hook.ShortCutPayload) error {
+func (ng *Engine) SaveAnswer(payload *hook.ShortCutPayload) error {
 	return nil
 }

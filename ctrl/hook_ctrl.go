@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func doSave(engine *core.Engine, payload hook.ShortCutPayload) error {
+func doSave(engine *core.Engine, payload *hook.ShortCutPayload) error {
 	switch payload.CallbackID {
 	case hook.AddQuestion:
 		return engine.SaveQuestion(payload)
@@ -28,7 +28,7 @@ func CreateHook(engine *core.Engine) func(c *gin.Context) {
 			logrus.Error("Unable to parse shortcut payload", err)
 			return
 		}
-		if err := doSave(engine, payload); err != nil {
+		if err := doSave(engine, &payload); err != nil {
 			logrus.Error("Error saving payload", err)
 		}
 	}
