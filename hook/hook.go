@@ -31,3 +31,12 @@ type MessageBlockElement struct {
 	Type   string                   `json:"type"`
 	Chunks []map[string]interface{} `json:"elements"`
 }
+
+type HookResponse struct {
+	ReplaceOriginal bool   `json:"replace_original"`
+	Text            string `json:"text"`
+}
+
+func NewHookResponse(text string) *HookResponse {
+	return &HookResponse{true, text}
+}

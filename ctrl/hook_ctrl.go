@@ -3,6 +3,7 @@ package ctrl
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
 
 	"github.com/a-cordier/slackoverflow/core"
 	"github.com/a-cordier/slackoverflow/hook"
@@ -19,6 +20,7 @@ func CreateHook(engine *core.Engine) func(c *gin.Context) {
 		}
 		if err := doSave(engine, &payload); err != nil {
 			logrus.Error("Error saving payload", err)
+			c.JSON(http.StatusBadRequest, hook.NewHookResponse(err.Error()))
 		}
 	}
 }
