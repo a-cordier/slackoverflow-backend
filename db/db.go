@@ -7,6 +7,10 @@ import (
 	"github.com/jinzhu/gorm/dialects/postgres"
 )
 
+type DB struct {
+	orm *gorm.DB
+}
+
 type Channel struct {
 	ID        string `gorm:"primaryKey"`
 	Name      string `gorm:"uniqueIndex"`
@@ -41,7 +45,15 @@ func NewQuestion() *Question {
 	}
 }
 
-func Connect(host string, port string, dbname string, user string, password string, sslmode string) (*gorm.DB, error) {
+func NewAnswer() *Answer {
+	return &Answer{
+		ID:         "",
+		Text:       postgres.Jsonb{},
+		QuestionID: "",
+	}
+}
+
+func Connect(host string, port string, dbname string, user string, password string, sslmode string) (*DB, error) {
 	params := fmt.Sprintf(
 		"host=%s port=%s dbname=%s user=%s password=%s sslmode=%s",
 		host, port, dbname, user, password, sslmode,
@@ -51,12 +63,47 @@ func Connect(host string, port string, dbname string, user string, password stri
 		return nil, err
 	}
 
-	db.AutoMigrate(&Channel{})
-	db.AutoMigrate(&Question{})
-	db.AutoMigrate(&Tag{})
-	db.AutoMigrate(&Answer{})
-	db.Model(&Answer{}).AddForeignKey("question_id", "questions(id)", "CASCADE", "CASCADE")
-	db.Model(&Question{}).AddForeignKey("channel_id", "channels(id)", "CASCADE", "CASCADE")
+	err = db.AutoMigrate(&Channel{}).
+		AutoMigrate(&Question{}).
+		AutoMigrate(&Tag{}).
+		AutoMigrate(&Answer{}).
+		Model(&Answer{}).AddForeignKey("question_id", "questions(id)", "CASCADE", "CASCADE").
+		Model(&Question{}).AddForeignKey("channel_id", "channels(id)", "CASCADE", "CASCADE").
+		Error
 
-	return db, nil
+	return &DB{db}, err
+}
+
+func (db *DB) Close() {
+	db.orm.Close()
+}
+
+func (db *DB) FindQuestions() ([]Question, error) {
+	var questions []Question
+	err := db.orm.Find(&questions).Error
+	return questions, err
+}
+
+func (db *DB) FindQuestion(ID string) (*Question, error) {
+	var question Question
+	err := db.orm.Find(&question, ID).Error
+	return &question, err
+}
+
+func (db *DB) SaveQuestion(channel *Channel, question *Question) error {
+	question.ChannelID = channel.ID
+	return db.orm.Where(Channel{ID: channel.ID}).
+		FirstOrCreate(channel).
+		Create(question).
+		Error
+}
+
+func (db *DB) FindAnswers(qID string) ([]Answer, error) {
+	var answers []Answer
+	err := db.orm.Where("question_id = ?", qID).Find(&answers).Error
+	return answers, err
+}
+
+func (db *DB) SaveAnswer(answer *Answer) error {
+	return db.orm.Create(answer).Error
 }

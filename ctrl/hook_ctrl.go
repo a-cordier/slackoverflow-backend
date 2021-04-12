@@ -11,9 +11,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func CreateHook(engine *core.Engine) func(c *gin.Context) {
+func NewHook(engine *core.Engine) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		var payload hook.ShortCutPayload
+		logrus.Info(c.PostForm("payload"))
 		if err := json.Unmarshal([]byte(c.PostForm("payload")), &payload); err != nil {
 			logrus.Error("Unable to parse shortcut payload", err)
 			return

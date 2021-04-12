@@ -21,6 +21,8 @@ func StartServer(port string) {
 	engine := core.NewEngine(db)
 	router := gin.New()
 	router.Use(ginrus.Ginrus(logrus.StandardLogger(), time.RFC3339, true))
-	router.POST("/hook", ctrl.CreateHook(engine))
+	router.POST("/hook", ctrl.NewHook(engine))
+	router.GET("/questions", ctrl.NewQuestionListHandler(engine))
+	router.GET("/answers/:questionID", ctrl.NewAnswerListHandler(engine))
 	router.Run(":" + port)
 }
